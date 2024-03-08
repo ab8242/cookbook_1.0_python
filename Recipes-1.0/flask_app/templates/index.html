@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-eqp="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/script.js') }}"
+      defer
+    ></script>
+    <title>Login Page</title>
+  </head>
+  <body>
+    {% with messages = get_flashed_messages() %}<!-- declare a variable called messages -->
+    {% if messages %}<!-- check if there are any messages -->
+    {% for message in messages %}<!-- loop through the messages -->
+    <p>{{message}}</p>
+    {% endfor %} {% endif %} {% endwith %}
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}<!-- declare a variable called messages -->
+    {% if messages %}<!-- check if there are any messages -->
+    {% for message in messages %}<!-- loop through the messages -->
+    <p>{{message}}</p>
+    {% endfor %} {% endif %} {% endwith %}
+    <form action="/login" method="post">
+    <h1>Login</h1>
+        <p>
+            <label>Email:</label>
+            <input type="email" name="email" />
+        </p>
+        <p>
+            <label>Password:</label>
+            <input type="password" name="password" />
+        </p>
+        <button type="submit">Register User</button>
+    </form>
+    <p>New to Recipes 'R' Us <a href="/register">Sign Up Now</a> </p>
+</body>
+</html>
