@@ -1,78 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static', filename='css/style.css') }}"
-    />
-    <script
-      type="text/javascript"
-      src="{{ url_for('static', filename='js/script.js') }}"
-      defer
-    ></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5); /* Background with opacity */
+        }
+        .container {
+            background-color: azure;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: dar;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .small-text {
+            font-size: smaller;
+            color: lightgrey;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    </style>
     <title>Add Recipe</title>
-  </head>
-  {% with messages = get_flashed_messages() %}<!-- declare a variable called messages -->
-  {% if messages %}<!-- check if there are any messages -->
-  {% for message in messages %}<!-- loop through the messages -->
-  <p>{{message}}</p>
-  {% endfor %} {% endif %} {% endwith %}
-
-  <body>
-    <form action="/newRecipe" method="post">
-      <input type="hidden" name="user_id" value="{{ session.user_id }}" />
-        <h1>Add Recipe to Library</h1>
+</head>
+<body>
+  <div class="container">
+    <div class="button-container">
         <a href="/dashboard">
-          <button>Dashboard</button>
+            <button>Dashboard</button>
         </a>
         <a href="/logout">
-          <button>Logout</button>
+            <button>Logout</button>
         </a>
-      <p>
-        <label>Title: </label>
-        <input type="text" name="title" />
-      </p>
-      <p>
-        <label>Total Time: </label>
-        <input type="number" name="total_time" min="1"/>
-      </p>
-      <p>
-        <label>Prep Time: </label>
-        <input type="number" name="prep_time" min="1"/>
-      </p>
-      <p>
-        <label>Cook Time :</label>
-        <input type="number" name="cook_time" min="1"/>
-      </p>
-      <p>
-        <label>Serving Size</label>
-        <input type="number" name="serving_size" min="1"/>
-      </p>
-      <p>
-        <label>Level: </label>
-        <select name="level" value="Beginner" />
-          <option value="Beginner">Beginner</option>
-          <option value="Intermediate">Intermediate</option>
-          <option value="Advance">Advance</option>
-          <option value="Expert">Expert</option>
-        </select>
-      </p>
-      <p>
-        <label>Ingredients: </label><br/>
-        <textarea name="ingredients" cols="40" rows="7"></textarea>
-      </p>
-      <p>
-        <label>Directions: </label><br/>
-        <textarea name="directions" cols="40" rows="7"></textarea>
-      </p>
-      <button type="submit">Add Recipe</button>
-    </form>
-  </body>
+    </div>
+    <h1>Add Recipe to Library</h1>
+    
+        <form action="/newRecipe" method="post">
+            <input type="hidden" name="user_id" value="{{ session.user_id }}" />
+            <p>
+                <label>Title:</label>
+                <input type="text" name="title" />
+            </p>
+            <p>
+                <label>Total Time: <span class="small-text">(in minutes)</span></label>
+                <input type="number" name="total_time" min="1"/>
+            </p>
+            <p>
+                <label>Prep Time: <span class="small-text">(in minutes)</span></label>
+                <input type="number" name="prep_time" min="1"/>
+            </p>
+            <p>
+                <label>Cook Time: <span class="small-text">(in minutes)</span></label>
+                <input type="number" name="cook_time" min="1"/>
+            </p>
+            <p>
+                <label>Serving Size:</label>
+                <input type="number" name="serving_size" min="1"/>
+            </p>
+            <p>
+                <label>Level:</label>
+                <select name="level">
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advance">Advance</option>
+                    <option value="Expert">Expert</option>
+                </select>
+            </p>
+            <p>
+                <label>Ingredients:</label><br/>
+                <textarea name="ingredients" cols="40" rows="7"></textarea>
+            </p>
+            <p>
+                <label>Directions:</label><br/>
+                <textarea name="directions" cols="40" rows="7"></textarea>
+            </p>
+            <button type="submit">Add Recipe</button>
+        </form>
+    </div>
+</body>
 </html>
-
-<!-- Format for adding images -->
-<!-- <img src="{{ url_for('static', filename='images/img.png') }}"> -->

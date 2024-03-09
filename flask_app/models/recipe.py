@@ -152,19 +152,19 @@ class Recipe:
         if len(data['title']) < 2:
             flash('Recipe title must be longer than 2 characters!!  Please try again!')
             is_valid = False
-        if int(data['total_time']) == 0:
+        if len(data['total_time']) == 0:
             flash(
-                'Recipe total time must be longer than 2 characters!!  Please try again!')
+                'Recipe total time must be longer than 0 minutes!!  Please try again!')
             is_valid = False
-        if int(data['prep_time']) == 0:
+        if len(data['prep_time']) == 0:
             flash(
                 ' Recipe prep time can not be 0!  Please put in the correct prep time!!')
             is_valid = False
-        if int(data['cook_time']) == 0:
+        if len(data['cook_time']) == 0:
             flash(
                 'Recipe cook time cannot be 0!!  Please add a cook time!')
             is_valid = False
-        if int(data['serving_size']) == 0:
+        if len(data['serving_size']) == 0:
             flash(
                 'Recipe serving size cannot be 0!!  Please add the serving size of your recipe!')
             is_valid = False

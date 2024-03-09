@@ -1,68 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static', filename='css/style.css') }}"
-    />
-    <script
-      type="text/javascript"
-      src="{{ url_for('static', filename='js/script.js') }}"
-      defer
-    ></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <style>
+        /* CSS to center-align the content and make the background opaque */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5); 
+        }
+        .content {
+            background-color: azure;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            max-width: 1200px; 
+            width: 100%;
+            position: relative;
+        }
+        h1 {
+            color: darkblue;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        a.logout-button {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            text-decoration: none;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .add-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
     <title>Your Recipes</title>
-  </head>
-  <body>
-    <div>
-      <input type="hidden" name="user_id" value="{{ session.user_id }}" />
-      <h1>Welcome to Recipes 'R' Us, {{ session.user_login }}!!!!!</h1>
-      <a href="/logout">
-        <button>Logout</button>
-      </a>
-      <div>
+</head>
+<body>
+    <div class="content">
+        <h1>Welcome to Recipes 'R' Us, {{ session.user_login }}!!!!!</h1>
+        <a href="/logout" class="logout-button">
+            <button>Logout</button>
+        </a>
+        <input type="hidden" name="user_id" value="{{ session.user_id }}" />
         <h2>All Posted Recipes Library</h2>
-      </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Total Time</th>
+                    <th>Level</th>
+                    <th>Author</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for one_recipe in all_recipes %}
+                <tr>
+                    <td>{{ one_recipe.title }}</td>
+                    <td>{{ one_recipe.total_time }} minutes</td>
+                    <td>{{ one_recipe.level }}</td>
+                    <td>{{ one_recipe.author.user_name }}</td>
+                    <td>
+                        {% if one_recipe.author.id == session['user_id'] %}
+                        <a href="/show/recipe/{{ one_recipe.id }}">view</a>
+                        <a href="/edit/recipe/{{ one_recipe.id }}">edit</a>
+                        <a href="/delete/recipe/{{ one_recipe.id }}">delete</a>
+                        {% else %}
+                        <a href="/show/recipe/{{ one_recipe.id }}">view</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a class="add-link" href="/newRecipe">Add a Recipe</a>
     </div>
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <td>Title</td>
-            <td>Total Time</td>
-            <td>Level</td>
-            <td>Author</td>
-          </tr>
-        </thead>
-        <tbody>
-          {% for one_recipe in all_recipes %}
-          <tr>
-            <td>{{ one_recipe.title }}</a></td>
-            <td>{{ one_recipe.total_time }}</td>
-            <td>{{ one_recipe.level }}</td>
-            <td>{{ one_recipe.author.user_name }}</td>
-            <td>
-              <td>
-                {% if one_recipe.author.id == session['user_id'] %}
-                <a href="/show/recipe/{{ one_recipe.id }}">view</a>
-                <a href="/edit/recipe/{{ one_recipe.id }}">edit</a>
-                <a href="/delete/recipe/{{ one_recipe.id }}">delete</a>
-                {% else %}
-                <a href="/show/recipe/{{ one_recipe.id }}">view</a>
-                {% endif%}
-              </td>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      <a href="/newRecipe">Add a Recipe</a>
-    </div>
-  </body>
+</body>
 </html>
-
-<!-- Format for adding images -->
-<!-- <img src="{{ url_for('static', filename='images/img.png') }}"> -->

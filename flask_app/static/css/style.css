@@ -1,4 +1,8 @@
 html {
     background-color: darkblue;
-    color: aliceblue;
+    background-image: url(../images/3rd_image.webp);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: darkblue;
 }

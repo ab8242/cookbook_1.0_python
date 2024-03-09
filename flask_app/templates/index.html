@@ -1,46 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta http-eqp="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static', filename='css/style.css') }}"
-    />
-    <script
-      type="text/javascript"
-      src="{{ url_for('static', filename='js/script.js') }}"
-      defer
-    ></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <style>
+        
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-container {
+            width: 300px;
+            padding: 20px;
+            border: 3px solid darkblue;
+            border-radius: 5px;
+            background-color: azure;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form p {
+            margin: 10px 0;
+        }
+        .form-container button {
+            margin-top: 10px;
+        }
+    </style>
     <title>Login Page</title>
-  </head>
-  <body>
-    {% with messages = get_flashed_messages() %}<!-- declare a variable called messages -->
-    {% if messages %}<!-- check if there are any messages -->
-    {% for message in messages %}<!-- loop through the messages -->
-    <p>{{message}}</p>
-    {% endfor %} {% endif %} {% endwith %}
 </head>
-<body>
     {% with messages = get_flashed_messages() %}<!-- declare a variable called messages -->
     {% if messages %}<!-- check if there are any messages -->
     {% for message in messages %}<!-- loop through the messages -->
     <p>{{message}}</p>
     {% endfor %} {% endif %} {% endwith %}
-    <form action="/login" method="post">
+<body>
     <h1>Login</h1>
-        <p>
-            <label>Email:</label>
-            <input type="email" name="email" />
-        </p>
-        <p>
-            <label>Password:</label>
-            <input type="password" name="password" />
-        </p>
-        <button type="submit">Register User</button>
-    </form>
-    <p>New to Recipes 'R' Us <a href="/register">Sign Up Now</a> </p>
+    <div class="form-container">
+        <form action="/login" method="post">
+            <p>
+                <label>Email:</label>
+                <input type="email" name="email" />
+            </p>
+            <p>
+                <label>Password:</label>
+                <input type="password" name="password" />
+            </p>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <p>New to Recipes 'R' Us <a href="/register">Sign Up Now</a></p>
 </body>
 </html>

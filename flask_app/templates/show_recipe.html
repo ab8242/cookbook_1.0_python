@@ -6,31 +6,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <style>
+        /* CSS to center-align the content and make the background opaque */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5); 
+        }
+        .content {
+            background-color: azure;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            max-width: 1200px; 
+            width: 100%;
+            position: relative;
+        }
+        h1 {
+            color: darkblue;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logout-buttons {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+        .dashboard-button {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
     <title>Recipe Dealz</title>
 </head>
 <body>
-    <input type="hidden" name="user_id" value="{{ session.user_id }}" />
-    <input type="hidden" name="id" value="{{ one_recipe.author.id }}" />
-    <input type="hidden" name="id" value="{{ one_recipe.id }}">
-    <a href="/dashboard">
-        <button>Dashboard</button>
-    </a>
-    <a href="/logout">
-        <button>Logout</button>
-    </a>
-
-    <h1>{{ one_recipe.title }}</h1>
-        <p>Total Time: {{ one_recipe.total_time }}</p>
-        <p>Prep time: {{ one_recipe.prep_time }}</p>
-        <p>Cook Time: {{ one_recipe.cook_time }}</p>
-        <p>Serving Size: {{ one_recipe.serving_size }}</p>
-        <p>Cooking Level: {{ one_recipe.level }}</p>
-        <p>Ingredients: </p>
-        <p>{{ one_recipe.ingredients }}</p>
-        <p>Directions:</p>
-        <p>{{ one_recipe.directions }}</p>
-        
+    <div class="content">
+        <a href="/dashboard" class="dashboard-button">
+            <button>Dashboard</button>
+        </a>
+        <h1>{{ one_recipe.title }}</h1>
+        <table>
+            <tr>
+                <th>Total Time:</th>
+                <td>{{ one_recipe.total_time }} minutes</td>
+            </tr>
+            <tr>
+                <th>Prep Time:</th>
+                <td>{{ one_recipe.prep_time }} minutes</td>
+            </tr>
+            <tr>
+                <th>Cook Time:</th>
+                <td>{{ one_recipe.cook_time }} minutes</td>
+            </tr>
+            <tr>
+                <th>Serving Size:</th>
+                <td>{{ one_recipe.serving_size }}</td>
+            </tr>
+            <tr>
+                <th>Cooking Level:</th>
+                <td>{{ one_recipe.level }}</td>
+            </tr>
+            <tr>
+                <th>Ingredients:</th>
+                <td>{{ one_recipe.ingredients }}</td>
+            </tr>
+            <tr>
+                <th>Directions:</th>
+                <td>{{ one_recipe.directions }}</td>
+            </tr>
+        </table>
+        <input type="hidden" name="user_id" value="{{ session.user_id }}" />
+        <input type="hidden" name="id" value="{{ one_recipe.author.id }}" />
+        <input type="hidden" name="id" value="{{ one_recipe.id }}">
+        <div class="logout-buttons">
+            <a href="/logout">
+                <button>Logout</button>
+            </a>
+        </div>
+    </div>
+</body>
 </html>
-
-<!-- Format for adding images -->
-<!-- <img src="{{ url_for('static', filename='images/img.png') }}"> -->
