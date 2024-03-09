@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <title>Recipe Dealz</title>
+</head>
+<body>
+    <input type="hidden" name="user_id" value="{{ session.user_id }}" />
+    <input type="hidden" name="id" value="{{ one_recipe.author.id }}" />
+    <input type="hidden" name="id" value="{{ one_recipe.id }}">
+    <a href="/dashboard">
+        <button>Dashboard</button>
+    </a>
+    <a href="/logout">
+        <button>Logout</button>
+    </a>
+
+    <h1>{{ one_recipe.title }}</h1>
+        <p>Total Time: {{ one_recipe.total_time }}</p>
+        <p>Prep time: {{ one_recipe.prep_time }}</p>
+        <p>Cook Time: {{ one_recipe.cook_time }}</p>
+        <p>Serving Size: {{ one_recipe.serving_size }}</p>
+        <p>Cooking Level: {{ one_recipe.level }}</p>
+        <p>Ingredients: </p>
+        <p>{{ one_recipe.ingredients }}</p>
+        <p>Directions:</p>
+        <p>{{ one_recipe.directions }}</p>
+        
+</html>
+
+<!-- Format for adding images -->
+<!-- <img src="{{ url_for('static', filename='images/img.png') }}"> -->
